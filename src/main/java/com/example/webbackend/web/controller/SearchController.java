@@ -46,7 +46,7 @@ public class SearchController {
     //https://google-translate1.p.rapidapi.com/language/translate/v2/languages
 
     public SearchController() {}
-
+// Translate free trial
 //    public String translate(String fromLang, String toLang, String text) throws Exception {
 //        // TODO: Should have used a 3rd party library to make a JSON string from an object
 //        String jsonPayload = new StringBuilder()
