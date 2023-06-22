@@ -104,10 +104,10 @@ public class SearchController {
                 System.out.println(keyword);
                 // https://rapidapi.com/googlecloud/api/google-translate1/
                 HttpRequest request = HttpRequest.newBuilder()
-                        .uri(URI.create("https://google-translate1.p.rapidapi.com/language/translate/v2"))
+                        .uri(URI.create("your URL"))
                         .header("content-type", "application/x-www-form-urlencoded")
                         .header("Accept-Encoding", "application/gzip")
-                        .header("X-RapidAPI-Key", "c3d1d22e8dmsh43acf321320b1b8p1ca55ejsn8fe242f75372")
+                        .header("X-RapidAPI-Key", "your KEY")
                         .header("X-RapidAPI-Host", "google-translate1.p.rapidapi.com")
                         .method("POST", HttpRequest.BodyPublishers.ofString("q=" +keyword
                                 + "&target=" + target
