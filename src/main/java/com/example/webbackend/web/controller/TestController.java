@@ -43,6 +43,7 @@ public class TestController {
                         i--;
                     }
                 }
+                System.out.println("Test");
                 return arrayTest;
             } else {
                 return wordServiceImplement.getAllWord();

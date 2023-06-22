@@ -16,7 +16,7 @@ public class WebApplication {
 
 //	public static void test() {
 //		for (int i = 1; i < 101; i++) {
-//			System.out.println("('" + i + "','text Enghlish " + i + "','text VN " + i + "'),");
+//			System.out.println("('" + i + "','text English " + i + "','text VN " + i + "'),");
 //		}
 //	}
 

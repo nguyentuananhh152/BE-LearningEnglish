@@ -96,35 +96,42 @@ public class SearchController {
     @ResponseBody
     public Word searchByKeyword(@RequestParam("keyword") String keyword) {
         try {
-            String target = "vi";
-            String source = "en";
-            // https://rapidapi.com/googlecloud/api/google-translate1/
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("https://google-translate1.p.rapidapi.com/language/translate/v2"))
-                    .header("content-type", "application/x-www-form-urlencoded")
-                    .header("Accept-Encoding", "application/gzip")
-                    .header("X-RapidAPI-Key", "c3d1d22e8dmsh43acf321320b1b8p1ca55ejsn8fe242f75372")
-                    .header("X-RapidAPI-Host", "google-translate1.p.rapidapi.com")
-                    .method("POST", HttpRequest.BodyPublishers.ofString("q=" +keyword
-                                                                                + "&target=" + target
-                                                                                + "&source=" + source))
-                    .build();
-            HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-            System.out.println(response.body());
-            String[] text1 = response.body().split("\":\"");
-            String[] text2 = text1[1].split("\"");
-            String textVN = text2[0];
-            numberWordLearned++;
-            Word w = new Word(keyword, textVN);
-            wordServiceImplement.saveWord(w);
-            return w;
+            if (keyword != "" || keyword != null) {
+                String target = "vi";
+                String source = "en";
+                keyword = keyword.trim();
+                keyword = keyword.replaceAll(" ", "%");
+                System.out.println(keyword);
+                // https://rapidapi.com/googlecloud/api/google-translate1/
+                HttpRequest request = HttpRequest.newBuilder()
+                        .uri(URI.create("https://google-translate1.p.rapidapi.com/language/translate/v2"))
+                        .header("content-type", "application/x-www-form-urlencoded")
+                        .header("Accept-Encoding", "application/gzip")
+                        .header("X-RapidAPI-Key", "c3d1d22e8dmsh43acf321320b1b8p1ca55ejsn8fe242f75372")
+                        .header("X-RapidAPI-Host", "google-translate1.p.rapidapi.com")
+                        .method("POST", HttpRequest.BodyPublishers.ofString("q=" +keyword
+                                + "&target=" + target
+                                + "&source=" + source))
+                        .build();
+                HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+                System.out.println(response.body());
+                String[] text1 = response.body().split("\":\"");
+                String[] text2 = text1[1].split("\"");
+                String textVN = text2[0];
+                numberWordLearned++;
+                Word w = new Word(keyword, textVN);
+                wordServiceImplement.saveWord(w);
+                return w;
+            } else {
+                return new Word("Error keyword null", "Error keyword null");
+            }
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
             return new Word("Error e", "Error v");
         }
     }
 
-    @PostMapping("/statistical")
+    @RequestMapping("/statistical")
     @ResponseBody
     public int GET_statistical() {
         return this.numberWordLearned;
